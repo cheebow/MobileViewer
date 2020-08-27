@@ -6,7 +6,7 @@ iPadでモバイルサイトを全画面で表示するアプリです。<br>
 
 # Install
 
-実機にインストールするには以下の手順を参考にしてください。<br>
+実機にインストールするには「MobileViewer.xcodeproj」をXcodeで開いてから、以下の「操作方法」の3以降を参考にしてください。<br>
 
 https://qiita.com/natsumo/items/3f1dd0e7f5471bd4b7d9
 
