@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         view.addSubview(webView)
 
         guard let url = URL(string: siteURL) else {
@@ -45,8 +46,28 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        preferences: WKWebpagePreferences,
+        decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences
+    ) -> Void) {
         preferences.preferredContentMode = .mobile
         decisionHandler(.allow, preferences)
+    }
+}
+
+extension ViewController: WKUIDelegate {
+    func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        guard let targetFrame = navigationAction.targetFrame, targetFrame.isMainFrame else {
+            webView.load(navigationAction.request)
+            return nil
+        }
+        return nil
     }
 }
